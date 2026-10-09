@@ -36,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         h1 { font-size: 1.4rem; margin-bottom: 1rem; }
         label { display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: 600; }
         input { width: 100%; padding: 0.6rem; margin-top: 0.3rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; margin-top: 1.5rem; padding: 0.7rem; border: none; border-radius: 8px; background: #ff5a5f; color: #fff; font-weight: 600; cursor: pointer; }
-        button:hover { background: #e6484d; }
+        button { width: 100%; margin-top: 1.5rem; padding: 0.7rem; border: none; border-radius: 8px; background: #e3b9a1; color: #fff; font-weight: 600; cursor: pointer; }
+        button:hover { background: #e3b9a1; }
         .message { margin-top: 1rem; padding: 0.6rem; border-radius: 8px; font-size: 0.9rem; }
-        .error { background: #fde3e3; color: #a11e1e; }
+        .error { background: #e3b9a1; color: #a11e1e; }
         p.switch { text-align: center; margin-top: 1rem; font-size: 0.9rem; }
     </style>
 </head>
