@@ -3,19 +3,443 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recepten</title>
-    <link rel="stylesheet" href="recepten.css">
-    <link rel="icon" type="image/webp" href="images/logo.png">
+    <title>Brownies maken Ontkoking</title>
+    <link rel="icon" type="image/png" href="../images/logo.png">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f1eb;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #50352a;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .terug {
+            display: inline-block;
+            margin: 25px 7% 15px;
+            color: #70442f;
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 1050px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+        }
+
+        .recept-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background-color: white;
+        }
+
+        .recept-hero img {
+            width: 100%;
+            height: 100%;
+            min-height: 340px;
+            object-fit: cover;
+        }
+
+        .intro {
+            padding: 30px;
+            align-self: center;
+        }
+
+        .label {
+            color: #805039;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .intro h2 {
+            font-size: 32px;
+            margin: 10px 0 15px;
+            line-height: 1.2;
+        }
+
+        .intro p {
+            margin-bottom: 20px;
+            color: #5e5e5e;
+        }
+
+        .info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info span {
+            background-color: #eee7df;
+            padding: 7px 10px;
+            font-size: 14px;
+        }
+
+        .knop {
+            display: inline-block;
+            background-color: #70442f;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+        }
+
+        .knop:hover {
+            background-color: #50352a;
+        }
+
+        .recept-inhoud {
+            display: grid;
+            grid-template-columns: 0.85fr 1.5fr;
+            gap: 25px;
+            margin-top: 30px;
+            align-items: start;
+        }
+
+        .kaart {
+            background-color: white;
+            padding: 25px;
+        }
+
+        .kaart h2 {
+            color: #50352a;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .aantal {
+            margin-bottom: 15px;
+        }
+
+        .aantal select {
+            padding: 6px;
+            margin-left: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+
+        .ingrediënten {
+            list-style: none;
+        }
+
+        .ingrediënten li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e0da;
+        }
+
+        .ingrediënten label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .ingrediënten input {
+            accent-color: #70442f;
+        }
+
+        .ingrediënten input:checked + span {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .stap {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .nummer {
+            background-color: #70442f;
+            color: white;
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .stap h3 {
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .stap p {
+            color: #555;
+        }
+
+        .tip {
+            background-color: #f2e7d9;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .tip h3 {
+            margin-bottom: 5px;
+            color: #50352a;
+        }
+
+        footer {
+            background-color: #50352a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 750px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .recept-hero,
+            .recept-inhoud {
+                grid-template-columns: 1fr;
+            }
+
+            .recept-hero img {
+                min-height: 230px;
+                max-height: 320px;
+            }
+
+            .intro {
+                padding: 22px;
+            }
+
+            .intro h2 {
+                font-size: 28px;
+            }
+
+            .kaart {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 <header>
     <h1>Ontkoking</h1>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="recepten.html">Recepten</a>
-        <a href="invoer.html">Recepten toevoegen</a>
-        <a href="detail.html">Inloggen</a>
+        <a href="../index.html">Home</a>
+        <a href="../recepten.html">Recepten</a>
+        <a href="../invoer.html">Recepten toevoegen</a>
+        <a href="../detail.html">Inloggen</a>
     </nav>
-
 </header>
+
+<a class="terug" href="../recepten.html">&larr; Terug naar recepten</a>
+
+<main>
+    <section class="recept-hero">
+        <img src="../images/brownie'.jpeg"
+             alt="Zelfgemaakte brownies">
+
+        <div class="intro">
+            <span class="label">DESSERT</span>
+
+            <h2>Brownies</h2>
+
+            <p>
+                Deze brownies zijn lekker chocoladeachtig en zacht van
+                binnen. Ze zijn makkelijk om te maken en lekker als
+                tussendoortje of als dessert.
+            </p>
+
+            <div class="info">
+                <span>15 min. voorbereiding</span>
+                <span>20 tot 25 min bakken</span>
+                <span>Makkelijk</span>
+                <span>9 stukken</span>
+            </div>
+
+            <a href="#ingrediënten" class="knop">
+                Bekijk ingrediënten
+            </a>
+        </div>
+    </section>
+
+    <section class="recept-inhoud">
+
+        <div class="kaart" id="ingrediënten">
+            <h2>Ingrediënten</h2>
+
+            <p class="aantal">
+                Aantal stukken:
+                <select id="porties" onchange="pasPortiesAan()">
+                    <option value="4">4</option>
+                    <option value="9" selected>9</option>
+                    <option value="16">16</option>
+                </select>
+            </p>
+
+            <ul class="ingrediënten">
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <span><span data-hoeveelheid="150">150</span> g pure chocolade</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <span><span data-hoeveelheid="125">125</span> g boter</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <span><span data-hoeveelheid="150">150</span> g suiker</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <span><span data-hoeveelheid="2">2</span> eieren</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <span><span data-hoeveelheid="75">75</span> g bloem</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <span><span data-hoeveelheid="25">25</span> g cacaopoeder</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <span>Een snufje zout</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <span>1 theelepel vanille extract </span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="kaart">
+            <h2>Bereidingswijze</h2>
+
+            <div class="stap">
+                <div class="nummer">1</div>
+                <div>
+                    <h3>Verwarm de oven</h3>
+                    <p>
+                        Verwarm de oven voor op 180 graden. Leg bakpapier
+                        in een bakvorm zodat de brownies niet blijven plakken.
+                    </p>
+                </div>
+            </div>
+
+            <div class="stap">
+                <div class="nummer">2</div>
+                <div>
+                    <h3>Smelt de chocolade en boter</h3>
+                    <p>
+                        Snijd de chocolade in kleine stukjes en smelt deze
+                        samen met de boter. Laat het daarna even afkoelen.
+                    </p>
+                </div>
+            </div>
+
+            <div class="stap">
+                <div class="nummer">3</div>
+                <div>
+                    <h3>Maak het beslag</h3>
+                    <p>
+                        Klop de eieren met de suiker. Voeg het
+                        chocolademengsel toe en roer daarna de bloem,
+                        cacao en het zout erdoor.
+                    </p>
+                </div>
+            </div>
+
+            <div class="stap">
+                <div class="nummer">4</div>
+                <div>
+                    <h3>Doe het beslag in de oven</h3>
+                    <p>
+                        Giet het beslag in de bakvorm en bak de brownies
+                        ongeveer 20 tot 25 minuten. Controleer tussendoor
+                        of ze niet te droog worden.
+                  </p>
+             </div>
+          </div>
+
+            <div class="stap">
+                <div class="nummer">5</div>
+                <div>
+                    <h3>Laat de brownies afkoelen</h3>
+                    <p>
+                        Laat de brownies afkoelen voordat je ze in stukken
+                        snijdt. Daarna zijn ze klaar om te eten!
+                  </p>
+ </div>
+ </div>
+</section>
+</main>
+<footer>
+    <p>Ontkoking</p>
+</footer>
+<script>
+    function pasPortiesAan() {
+        const porties = Number(document.getElementById("porties").value);
+
+        document.querySelectorAll("[data-hoeveelheid]").forEach(element => {
+            const basis = Number(element.getAttribute("data-hoeveelheid"));
+            const hoeveelheid = basis * porties / 9;
+
+            element.textContent = Number(hoeveelheid.toFixed(1));
+        });
+    }
+</script>
+</body>
+</html>
