@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
+}
+
+header {
+    background-color: white;
+    padding: 20px 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    color: #000000;
+}
+
+nav a {
+    margin-left: 25px;
+    text-decoration: none;
+    color: black;
+}
+
+nav a:hover {
+    color: #cb937a;
+}
+.hero {
+    height: 450px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-image:
+    linear-gradient(rgba(65, 64, 64, 0.4), rgba(55, 55, 55, 0.4)),
+     url('images/burger.jpeg');
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease;
+}
+.hero-content {
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+.zoeken {
+    text-align: center;
+    margin: 30px 0 20px;
+}
+
+.zoeken input {
+    width: 400px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.zoeken button {
+    padding: 12px 20px;
+    margin-left: 5px;
+
+    background-color: #f58353;
+    color: white;
+
+    border: none;
+    border-radius: 5px;
+}
