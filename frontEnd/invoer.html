@@ -1,24 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     <link rel="stylesheet" href="invoer.css">
-     <link rel="icon" type="image/webp" href="images/logo.png">
+    <title>Recept toevoegen</title>
+    <link rel="stylesheet" href="invoer.css">
+    <script src="invoer.js" defer></script>
 </head>
 <body>
-    <header>
-    <h1>Ontkoking</h1>
 
+<header>
+    <h1>Ontkoking</h1>
     <nav>
         <a href="/index.php">Home</a>
         <a href="recepten.html">Recepten</a>
         <a href="invoer.html">Recepten toevoegen</a>
         <a href="detail.html">Inloggen</a>
     </nav>
-
 </header>
 
+<main>
+    <section class="intro">
+        <h2>Voeg jou recept toe</h2>
+        <p>Deel je favoriete gerechten</p>
+    </section>
+
+    <section class="formulier">
+        <h2>Nieuw recept</h2>
+
+        <form id="receptForm">
+            <label for="naam">Naam van het recept</label>
+            <input type="text" id="naam" required>
+
+            <label for="categorie">Categorie</label>
+            <select id="categorie" required>
+                <option value="">Kies een categorie</option>
+                <option>Ontbijt</option>
+                <option>Lunch</option>
+                <option>Diner</option>
+                <option>Snacks</option>
+                <option>Dessert</option>
+            </select>
+
+            <label for="tijd">Bereidingstijd in minuten</label>
+            <input type="number" id="tijd" min="1" required>
+
+            <label for="ingredienten">Ingrediënten</label>
+            <textarea id="ingredienten"
+                placeholder="Bijvoorbeeld:&#10;200 gram pasta&#10;2 eieren"
+                required></textarea>
+
+            <label for="bereiding">Bereidingswijze</label>
+            <textarea id="bereiding"
+                placeholder="Beschrijf de stappen van je recept..."
+                required></textarea>
+
+            <button type="submit" id="opslaan">Recept toevoegen</button>
+        </form>
+
+        <p id="melding"></p>
+    </section>
+    <section class="overzicht">
+        <h2>Mijn recepten</h2>
+        <div id="recepten"></div>
+    </section>
+</main>
+
+<footer>
+    <p>Ontkoking</p>
+</footer>
 </body>
 </html>
