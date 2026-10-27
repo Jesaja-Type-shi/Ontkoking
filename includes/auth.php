@@ -1,9 +1,9 @@
 <?php
-// auth.php (root-niveau)
+// includes/auth.php
 // Alle logica voor de inlogfunctie. Maakt gebruik van de $conn uit includes/dbconfig.php,
 // zonder dbconfig.php zelf aan te passen.
 
-require_once __DIR__ . '/includes/dbconfig.php';
+require_once __DIR__ . '/dbconfig.php';
 
 // De 'login'-tabel wordt hier aangemaakt (dbconfig.php verwijst er via de
 // FOREIGN KEY al naar, maar maakt hem zelf niet aan).

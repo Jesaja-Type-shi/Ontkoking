@@ -1,6 +1,6 @@
 <?php
 
-$db = __DIR__ . '/database.sql';
+$db = __DIR__ . '/../database/database.sql';
 try {
     $conn = new PDO("sqlite:$db");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
