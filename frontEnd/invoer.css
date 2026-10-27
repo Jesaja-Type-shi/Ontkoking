@@ -6,9 +6,8 @@ body {
 }
 
 header {
-    background-color: white;
+    background: white;
     padding: 20px 50px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,7 +15,6 @@ header {
 
 header h1 {
     margin: 0;
-    color: #000000;
 }
 
 nav a {
@@ -27,4 +25,111 @@ nav a {
 
 nav a:hover {
     color: #cb937a;
+}
+
+.intro {
+    text-align: center;
+    padding: 40px 20px;
+    background: #e3b9a1;
+}
+
+.intro h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.formulier, .overzicht {
+    width: 90%;
+    max-width: 700px;
+    margin: 35px auto;
+}
+
+.formulier {
+    background: white;
+    padding: 25px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+label {
+    display: block;
+    margin: 18px 0 8px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font: inherit;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button {
+    padding: 12px 18px;
+    margin-top: 15px;
+    background: #e65f25;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #cb4d19;
+}
+
+.recept {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow-wrap: anywhere;
+}
+
+.recept h3 {
+    margin-top: 0;
+}
+
+.recept p {
+    white-space: pre-line;
+    line-height: 1.5;
+}
+
+.verwijderen {
+    background: #555;
+    margin-left: 8px;
+}
+
+footer {
+    margin-top: 50px;
+    padding: 25px;
+    text-align: center;
+    background: #222;
+    color: white;
+}
+
+@media (max-width: 700px) {
+    header {
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    nav a {
+        margin: 0;
+    }
 }
