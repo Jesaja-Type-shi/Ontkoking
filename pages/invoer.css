@@ -133,3 +133,62 @@ footer {
         margin: 0;
     }
 }
+.account {
+    margin-left: 25px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.inline-form {
+    display: inline;
+}
+
+.fout {
+    margin: 0 0 10px;
+    padding: 10px 12px;
+    background: #fde8e8;
+    color: #a11e1e;
+    border-radius: 5px;
+}
+
+#melding {
+    font-weight: bold;
+    color: #1e7a1e;
+}
+
+.annuleren {
+    margin-left: 12px;
+    color: #555;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 6px;
+}
+
+.checkbox-label {
+    display: block;
+    margin: 8px 0;
+    font-weight: normal;
+}
+
+.hint {
+    margin: 4px 0 10px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.huidige-foto {
+    display: block;
+    max-width: 220px;
+    border-radius: 6px;
+}
+
+.recept img.foto {
+    display: block;
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}

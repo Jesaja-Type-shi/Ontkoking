@@ -1,24 +1,45 @@
 <?php
+require_once __DIR__ . '/../includes/recipes.php';
+
 $paginaTitel = 'Recepten';
 $css  = 'recepten.css';
 $base = '../';
 
-// Later kun je deze array vervangen door een database-query
-$recepten = [
-    ['titel' => 'Pasta Carbonara',     'afbeelding' => 'pasta.jpg',      'tijd' => '25 minuten', 'niveau' => 'Makkelijk', 'link' => 'receptenDetail/pasta.html'],
-    ['titel' => 'Chicken Wrap',        'afbeelding' => 'wrap.jpeg',      'tijd' => '20 minuten', 'niveau' => 'Makkelijk', 'link' => 'receptenDetail/wrap.html'],
-    ['titel' => 'Poké Bowl',           'afbeelding' => 'poke-bowl.jpeg', 'tijd' => '15 minuten', 'niveau' => 'Makkelijk', 'link' => 'receptenDetail/pokeBowl.html'],
-    ['titel' => 'Zelfgemaakte Burger', 'afbeelding' => 'burger.jpeg',    'tijd' => '30 minuten', 'niveau' => 'Gemiddeld', 'link' => 'receptenDetail/burger.html'],
-    ['titel' => 'Pancakes',            'afbeelding' => 'pancakes.jpeg',  'tijd' => '15 minuten', 'niveau' => 'Makkelijk', 'link' => 'receptenDetail/pancakes.html'],
-    ['titel' => 'Brownies',            'afbeelding' => 'brownie.jpeg',  'tijd' => '35 minuten', 'niveau' => 'Gemiddeld', 'link' => 'receptenDetail/brownies.html'],
+// Voorbeeldrecepten (vaste pagina's)
+$voorbeelden = [
+    ['titel' => 'Pasta Carbonara',     'afbeelding' => 'pasta.jpg',      'tijd' => '25 minuten', 'label' => 'Makkelijk', 'categorie' => 'Diner',   'link' => 'receptenDetail/pasta.html'],
+    ['titel' => 'Chicken Wrap',        'afbeelding' => 'wrap.jpeg',      'tijd' => '20 minuten', 'label' => 'Makkelijk', 'categorie' => 'Lunch',   'link' => 'receptenDetail/wrap.html'],
+    ['titel' => 'Poké Bowl',           'afbeelding' => 'poke-bowl.jpeg', 'tijd' => '15 minuten', 'label' => 'Makkelijk', 'categorie' => 'Lunch',   'link' => 'receptenDetail/pokeBowl.html'],
+    ['titel' => 'Zelfgemaakte Burger', 'afbeelding' => 'burger.jpeg',    'tijd' => '30 minuten', 'label' => 'Gemiddeld', 'categorie' => 'Diner',   'link' => 'receptenDetail/burger.html'],
+    ['titel' => 'Pancakes',            'afbeelding' => 'pancakes.jpeg',  'tijd' => '15 minuten', 'label' => 'Makkelijk', 'categorie' => 'Ontbijt', 'link' => 'receptenDetail/pancakes.html'],
+    ['titel' => 'Brownies',            'afbeelding' => 'brownie.jpeg',   'tijd' => '35 minuten', 'label' => 'Gemiddeld', 'categorie' => 'Dessert', 'link' => 'receptenDetail/brownies.html'],
 ];
 
-$categorieen = ['Alles', 'Ontbijt', 'Lunch', 'Diner', 'Snacks', 'Dessert'];
+$categorieen = array_merge(['Alles'], RECEPT_CATEGORIEEN);
 
-// Eenvoudig zoeken op titel
-$zoek = trim($_GET['zoek'] ?? '');
-if ($zoek !== '') {
-    $recepten = array_filter($recepten, fn($r) => stripos($r['titel'], $zoek) !== false);
+$zoek      = trim($_GET['zoek'] ?? '');
+$categorie = trim($_GET['categorie'] ?? '');
+if (!in_array($categorie, RECEPT_CATEGORIEEN, true)) {
+    $categorie = '';
+}
+
+// Voorbeelden filteren
+$recepten = array_filter($voorbeelden, function ($r) use ($zoek, $categorie) {
+    return ($zoek === '' || stripos($r['titel'], $zoek) !== false)
+        && ($categorie === '' || $r['categorie'] === $categorie);
+});
+
+// Recepten uit de database erbij
+foreach (getRecipes($conn, $zoek, $categorie) as $r) {
+    $recepten[] = [
+        'titel'      => $r['naam'],
+        'afbeelding' => $r['foto'] ?: null,
+        'map'        => 'uploads',
+        'tijd'       => (int)$r['tijd'] . ' minuten',
+        'label'      => $r['categorie'],
+        'auteur'     => $r['username'] ?? null,
+        'link'       => 'detail.php?id=' . (int)$r['id'],
+    ];
 }
 
 include __DIR__ . '/../includes/header.php';
@@ -34,28 +55,43 @@ include __DIR__ . '/../includes/header.php';
     <section class="zoeken">
         <form method="get" action="recepten.php">
             <input type="text" name="zoek" placeholder="Zoek een recept..." value="<?= htmlspecialchars($zoek) ?>">
+            <?php if ($categorie !== ''): ?>
+                <input type="hidden" name="categorie" value="<?= htmlspecialchars($categorie) ?>">
+            <?php endif; ?>
             <button type="submit">Zoeken</button>
         </form>
     </section>
 
     <section class="categorieen">
-        <?php foreach ($categorieen as $categorie): ?>
-            <button type="button"><?= htmlspecialchars($categorie) ?></button>
-        <?php endforeach; ?>
+        <form method="get" action="recepten.php">
+            <?php if ($zoek !== ''): ?>
+                <input type="hidden" name="zoek" value="<?= htmlspecialchars($zoek) ?>">
+            <?php endif; ?>
+            <?php foreach ($categorieen as $cat): ?>
+                <button type="submit" name="categorie" value="<?= $cat === 'Alles' ? '' : htmlspecialchars($cat) ?>"><?= htmlspecialchars($cat) ?></button>
+            <?php endforeach; ?>
+        </form>
     </section>
 
     <section class="recepten">
         <h2>Recepten</h2>
 
         <?php if (empty($recepten)): ?>
-            <p>Geen recepten gevonden voor "<?= htmlspecialchars($zoek) ?>".</p>
+            <p>Geen recepten gevonden.</p>
         <?php else: ?>
         <div class="recept-container">
             <?php foreach ($recepten as $recept): ?>
                 <div class="recept">
-                    <img src="<?= $base ?>assets/images/<?= htmlspecialchars($recept['afbeelding']) ?>" alt="<?= htmlspecialchars($recept['titel']) ?>">
+                    <?php if (!empty($recept['afbeelding'])): ?>
+                        <img src="<?= $base ?>assets/<?= htmlspecialchars($recept['map'] ?? 'images') ?>/<?= htmlspecialchars($recept['afbeelding']) ?>" alt="<?= htmlspecialchars($recept['titel']) ?>">
+                    <?php endif; ?>
                     <h3><?= htmlspecialchars($recept['titel']) ?></h3>
-                    <p><?= htmlspecialchars($recept['tijd']) ?> &middot; <?= htmlspecialchars($recept['niveau']) ?></p>
+                    <p>
+                        <?= htmlspecialchars($recept['tijd']) ?> &middot; <?= htmlspecialchars($recept['label']) ?>
+                        <?php if (!empty($recept['auteur'])): ?>
+                            &middot; door <?= htmlspecialchars($recept['auteur']) ?>
+                        <?php endif; ?>
+                    </p>
                     <a href="<?= htmlspecialchars($recept['link']) ?>">Bekijk recept</a>
                 </div>
             <?php endforeach; ?>
