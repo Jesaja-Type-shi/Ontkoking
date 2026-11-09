@@ -1,5 +1,5 @@
 <?php
-// JSON-endpoint: plaatst een reactie bij een recept.
+
 require_once __DIR__ . '/../includes/helpers.php';
 
 [$user, $input] = apiStart($conn);
@@ -13,7 +13,7 @@ if ($tekst === '' || strlen($tekst) > 1000 || preg_match('//u', $tekst) !== 1) {
 }
 $userId = (int) $user['id'];
 
-// Anti-spam: maximaal 5 reacties per minuut.
+
 $count = $conn->prepare("SELECT COUNT(*) FROM comments WHERE user_id = :user AND created_at > datetime('now', '-1 minute')");
 $count->execute(['user' => $userId]);
 if ((int) $count->fetchColumn() >= 5) {

@@ -1,14 +1,12 @@
 <?php
-// includes/auth.php
-// Alle logica voor de inlogfunctie. Maakt gebruik van de $conn uit includes/dbconfig.php.
+
 
 require_once __DIR__ . '/dbconfig.php';
 
 $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 $conn->exec('PRAGMA foreign_keys = ON');
 
-// De 'login'-tabel wordt hier aangemaakt (dbconfig.php verwijst er via de
-// FOREIGN KEY al naar, maar maakt hem zelf niet aan).
+
 $conn->exec("CREATE TABLE IF NOT EXISTS login (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
@@ -18,7 +16,7 @@ $conn->exec("CREATE TABLE IF NOT EXISTS login (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )");
 
-// Bibliotheek (favorieten), reacties en inlogpogingen
+
 $conn->exec("CREATE TABLE IF NOT EXISTS favorites (
     user_id INTEGER NOT NULL,
     recipe_id TEXT NOT NULL,
@@ -51,10 +49,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-/**
- * Registreert een nieuwe gebruiker.
- * Geeft een array terug: ['success' => bool, 'message' => string]
- */
+
 function registerUser(PDO $conn, string $username, string $email, string $password): array
 {
     $username = trim($username);
@@ -76,7 +71,7 @@ function registerUser(PDO $conn, string $username, string $email, string $passwo
         return ['success' => false, 'message' => 'Wachtwoord moet 8 tot 72 tekens bevatten.'];
     }
 
-    // Controleer of username of email al bestaat (hoofdletters maken niet uit)
+    
     $stmt = $conn->prepare("SELECT id FROM login WHERE LOWER(username) = LOWER(:username) OR LOWER(email) = LOWER(:email)");
     $stmt->execute(['username' => $username, 'email' => $email]);
     if ($stmt->fetch()) {
@@ -95,12 +90,7 @@ function registerUser(PDO $conn, string $username, string $email, string $passwo
     return ['success' => true, 'message' => 'Account succesvol aangemaakt. Je kunt nu inloggen.'];
 }
 
-/**
- * Logt een gebruiker in op basis van gebruikersnaam of e-mail + wachtwoord.
- * Zet bij succes de sessievariabelen.
- * Maximaal 5 mislukte pogingen per 15 minuten (per IP + gebruikersnaam).
- * Geeft een array terug: ['success' => bool, 'message' => string]
- */
+
 function loginUser(PDO $conn, string $usernameOrEmail, string $password): array
 {
     $usernameOrEmail = trim($usernameOrEmail);
@@ -129,7 +119,7 @@ function loginUser(PDO $conn, string $usernameOrEmail, string $password): array
 
     $conn->prepare("DELETE FROM login_attempts WHERE attempt_key = :key")->execute(['key' => $key]);
 
-    // Sessie vaststellen
+    
     session_regenerate_id(true);
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
@@ -139,9 +129,7 @@ function loginUser(PDO $conn, string $usernameOrEmail, string $password): array
     return ['success' => true, 'message' => 'Succesvol ingelogd.'];
 }
 
-/**
- * Logt de huidige gebruiker uit.
- */
+
 function logoutUser(): void
 {
     $_SESSION = [];
@@ -157,25 +145,19 @@ function logoutUser(): void
     session_destroy();
 }
 
-/**
- * Controleert of er een gebruiker is ingelogd.
- */
+
 function isLoggedIn(): bool
 {
     return isset($_SESSION['user_id']);
 }
 
-/**
- * Controleert of de ingelogde gebruiker een beheerder is.
- */
+
 function isAdmin(): bool
 {
     return isLoggedIn() && ($_SESSION['role'] ?? '') === 'admin';
 }
 
-/**
- * Wijzigt het wachtwoord van een gebruiker (huidig wachtwoord is vereist).
- */
+
 function changePassword(PDO $conn, int $userId, string $current, string $new): array
 {
     if (strlen($new) < 8 || strlen($new) > 72) {
@@ -193,9 +175,7 @@ function changePassword(PDO $conn, int $userId, string $current, string $new): a
     return ['success' => true, 'message' => 'Je wachtwoord is gewijzigd.'];
 }
 
-/**
- * Verwijdert het account met alles wat erbij hoort (favorieten, reacties, producten).
- */
+
 function deleteAccount(PDO $conn, int $userId, string $password): array
 {
     $stmt = $conn->prepare("SELECT password FROM login WHERE id = :id");

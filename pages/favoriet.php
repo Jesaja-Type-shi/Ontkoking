@@ -1,5 +1,5 @@
 <?php
-// JSON-endpoint: zet een recept in of uit de bibliotheek van de ingelogde gebruiker.
+
 require_once __DIR__ . '/../includes/helpers.php';
 
 [$user, $input] = apiStart($conn);
@@ -9,7 +9,7 @@ if (!isValidRecipeId($id)) {
 }
 $userId = (int) $user['id'];
 
-// Staat het recept al in de bibliotheek? Dan verwijderen, anders toevoegen.
+
 $del = $conn->prepare("DELETE FROM favorites WHERE user_id = :user AND recipe_id = :recept");
 $del->execute(['user' => $userId, 'recept' => $id]);
 $aan = false;

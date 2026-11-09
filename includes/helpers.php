@@ -1,29 +1,28 @@
 <?php
-// includes/helpers.php
-// Kleine hulpfuncties voor de pagina's: veilige uitvoer, CSRF, favorieten, reacties en de JSON-endpoints.
+
 
 require_once __DIR__ . '/auth.php';
 
-/** Maakt tekst veilig voor in HTML. */
+
 function e(string $text): string
 {
     return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-/** Maakt data veilig voor in een <script>-blok. */
+
 function jsonForHtml($data): string
 {
     return json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
 }
 
-/** Leest een tekstveld uit $_POST (altijd een string). */
+
 function postValue(string $name): string
 {
     $value = $_POST[$name] ?? '';
     return is_string($value) ? $value : '';
 }
 
-/** CSRF-token: beschermt formulieren en API-aanroepen tegen misbruik van buitenaf. */
+
 function csrfToken(): string
 {
     if (empty($_SESSION['csrf'])) {
@@ -42,7 +41,7 @@ function isValidRecipeId(string $id): bool
     return preg_match('/^[a-z0-9-]{1,60}$/', $id) === 1;
 }
 
-/** Alleen lokale pagina's zijn toegestaan als terugkeeradres (geen open redirect). */
+
 function safeRedirectTarget($target): string
 {
     if (is_string($target) && preg_match('/^[\w-]+\.php(\?[\w=&%.-]*)?$/', $target) === 1) {
@@ -51,7 +50,7 @@ function safeRedirectTarget($target): string
     return '../index.php';
 }
 
-/** Geeft de ingelogde gebruiker (uit de database) of null. */
+
 function currentUser(PDO $conn): ?array
 {
     if (!isLoggedIn()) {
@@ -88,7 +87,7 @@ function getComments(PDO $conn, string $recipeId): array
     return $rows;
 }
 
-/** Hulpfuncties voor de JSON-endpoints (pages/favoriet.php en pages/reactie.php). */
+
 function apiStop(int $code, string $message): void
 {
     http_response_code($code);

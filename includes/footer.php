@@ -1,13 +1,10 @@
 <?php
-// Gedeelde footer + de scripts van de site.
-// Zet VOOR het includen (optioneel):
-//   $scripts    = ['recepten.js'];            (bestanden in assets/js/)
-//   $paginaData = ['reacties' => [...]];      (komt in JavaScript beschikbaar als PAGE)
+
 $base = $base ?? '../';
 
-// E-mailadres voor contact (footer). Pas dit aan naar jullie eigen adres:
+
 $contactEmail = 'ontkoking@gmail.com';
-// Foto per recept: zet een bestand in assets/images/recepten/ met de id van het recept (bijv. pad-thai.jpg).
+
 $fotos = [];
 $fotoMap = __DIR__ . '/../assets/images/recepten';
 if (is_dir($fotoMap)) {
@@ -18,8 +15,7 @@ if (is_dir($fotoMap)) {
         }
     }
 }
-// Foto per land (cirkels bij 'Ontdek de wereldkeuken'): assets/images/landen/<land zonder accenten>.jpg
-// bijvoorbeeld italie.jpg of verenigde-staten.jpg
+
 $landFotos = [];
 $landMap = __DIR__ . '/../assets/images/landen';
 if (is_dir($landMap)) {

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
 
-// Alleen ingelogde gebruikers mogen recepten toevoegen
+
 if (!isLoggedIn()) {
     header('Location: login.php');
     exit;

@@ -1,9 +1,5 @@
 <?php
-// Gedeelde header.
-// Zet VOOR het includen:
-//   $paginaTitel = 'Titel';
-//   $css         = 'style.css';      (bestand in assets/css/)
-//   $base        = '../';            (pad terug naar de projectmap: '../' vanuit pages/, './' vanuit index.php)
+
 require_once __DIR__ . '/helpers.php';
 
 $paginaTitel = $paginaTitel ?? 'Ontkoking';
@@ -14,7 +10,7 @@ $huidig    = basename($_SERVER['SCRIPT_NAME'] ?? '');
 $gebruiker = currentUser($conn);
 $aantalFav = $gebruiker ? count(getFavorites($conn, (int) $gebruiker['id'])) : 0;
 $menu = [
-    // [tekst, link, bestandsnaam voor de actieve stand ('' = geen)]
+   
     ['Home',         $base . 'index.php',                    'index.php'],
     ['Recepten',     $base . 'pages/recepten.php',           'recepten.php'],
     ['Populair',     $base . 'index.php#populair-recepten',  ''],

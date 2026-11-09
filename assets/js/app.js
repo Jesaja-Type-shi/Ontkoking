@@ -1,4 +1,4 @@
-// APP wordt door includes/footer.php ingevuld: { base, gebruiker, favs, csrf }
+
 const favs = {
   get() { return APP.favs; },
   has(id) { return APP.favs.includes(id); },
@@ -16,7 +16,7 @@ const favs = {
 };
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-// Foto van een recept: eerst uit assets/images/recepten/ (automatisch), anders het "img"-veld in recipes.js
+
 const foto = r => APP.fotos[r.id] || r.img || null;
 const afb = r => foto(r)
   ? `<img src="${APP.base}${foto(r)}" alt="${r.titel}" loading="lazy">`

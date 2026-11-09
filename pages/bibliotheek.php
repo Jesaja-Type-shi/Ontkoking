@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/helpers.php';
 
-// Alleen ingelogde gebruikers hebben een bibliotheek
+
 if (!isLoggedIn()) {
     header('Location: login.php?terug=bibliotheek.php');
     exit;

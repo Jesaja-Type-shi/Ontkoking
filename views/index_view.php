@@ -10,8 +10,7 @@ include __DIR__ . '/../includes/header.php';
 </section>
 <section class="rondjes">
 <?php
-// Foto per cirkel: zet een bestand in assets/images/categorieen/ met de naam van de categorie
-// in kleine letters (bijv. ontbijt.jpg). Zonder foto zie je de emoji.
+
 $categorieen = ['Ontbijt' => '🥞', 'Lunch' => '🥪', 'Diner' => '🍝', 'Soep' => '🍲', 'Salade' => '🥗',
                 'Snacks' => '🍿', 'Dessert' => '🍰', 'Drankjes' => '🥤', 'Vegetarisch' => '🥦'];
 foreach ($categorieen as $naam => $emoji):

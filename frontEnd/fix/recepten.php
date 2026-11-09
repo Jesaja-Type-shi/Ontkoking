@@ -3,7 +3,7 @@ $paginaTitel = 'Recepten';
 $css  = 'recepten.css';
 $base = '../';
 
-// Later kun je deze array vervangen door een database-query
+
 $recepten = [
     ['titel' => 'Pasta Carbonara',     'afbeelding' => 'pasta.jpg',      'tijd' => '25 minuten', 'niveau' => 'Makkelijk', 'link' => 'receptenDetail/pasta.html'],
     ['titel' => 'Chicken Wrap',        'afbeelding' => 'wrap.jpeg',      'tijd' => '20 minuten', 'niveau' => 'Makkelijk', 'link' => 'receptenDetail/wrap.html'],
@@ -15,7 +15,7 @@ $recepten = [
 
 $categorieen = ['Alles', 'Ontbijt', 'Lunch', 'Diner', 'Snacks', 'Dessert'];
 
-// Eenvoudig zoeken op titel
+
 $zoek = trim($_GET['zoek'] ?? '');
 if ($zoek !== '') {
     $recepten = array_filter($recepten, fn($r) => stripos($r['titel'], $zoek) !== false);
