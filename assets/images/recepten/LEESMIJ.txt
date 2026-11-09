@@ -1,0 +1,40 @@
+FOTO'S VOOR DE GERECHTEN
+
+Zet hier een foto neer en geef hem de id van het recept als naam.
+Toegestaan: .jpg  .jpeg  .png  .webp  (kleine letters). Meer hoef je niet te doen.
+
+id (bestandsnaam)            recept
+pasta                        Pasta Carbonara
+wrap                         Chicken Wrap
+pokebowl                     Poké Bowl
+burger                       Zelfgemaakte burger
+pancakes                     Pancakes
+brownies                     Brownies
+overnight-oats               Overnight Oats
+avocadotoast                 Avocadotoast
+spaghetti-bolognese          Spaghetti Bolognese
+boerenkoolstamppot           Boerenkoolstamppot
+groentecurry                 Groentecurry
+tomatensoep                  Tomatensoep
+pompoensoep                  Pompoensoep
+griekse-salade               Griekse Salade
+guacamole                    Guacamole
+chocolademousse              Chocolademousse
+aardbeiensmoothie            Aardbeiensmoothie
+limonade                     Verse Limonade
+pad-thai                     Pad Thai
+butter-chicken               Butter Chicken
+chicken-teriyaki             Chicken Teriyaki
+miso-soep                    Miso Soep
+tacos                        Taco's
+spaanse-tortilla             Spaanse Tortilla
+gazpacho                     Gazpacho
+ratatouille                  Ratatouille
+croque-monsieur              Croque Monsieur
+nasi-goreng                  Nasi Goreng
+marokkaanse-tajine           Marokkaanse Kiptajine
+menemen                      Menemen
+hummus                       Hummus
+mac-and-cheese               Mac and Cheese
+belgische-wafels             Belgische Wafels
+pizza-margherita             Pizza Margherita

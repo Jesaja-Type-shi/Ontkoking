@@ -94,5 +94,4 @@ function verwijderenRecept(index) {
     }
 }
 
-
 tonen();

@@ -1,6 +1,76 @@
-<footer>
-    <p>Ontkoking</p>
+<?php
+// Gedeelde footer + de scripts van de site.
+// Zet VOOR het includen (optioneel):
+//   $scripts    = ['recepten.js'];            (bestanden in assets/js/)
+//   $paginaData = ['reacties' => [...]];      (komt in JavaScript beschikbaar als PAGE)
+$base = $base ?? '../';
+
+// E-mailadres voor contact (footer). Pas dit aan naar jullie eigen adres:
+$contactEmail = 'ontkoking@gmail.com';
+// Foto per recept: zet een bestand in assets/images/recepten/ met de id van het recept (bijv. pad-thai.jpg).
+$fotos = [];
+$fotoMap = __DIR__ . '/../assets/images/recepten';
+if (is_dir($fotoMap)) {
+    foreach (scandir($fotoMap) as $bestand) {
+        $ext = strtolower(pathinfo($bestand, PATHINFO_EXTENSION));
+        if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'], true)) {
+            $fotos[strtolower(pathinfo($bestand, PATHINFO_FILENAME))] = 'assets/images/recepten/' . $bestand;
+        }
+    }
+}
+// Foto per land (cirkels bij 'Ontdek de wereldkeuken'): assets/images/landen/<land zonder accenten>.jpg
+// bijvoorbeeld italie.jpg of verenigde-staten.jpg
+$landFotos = [];
+$landMap = __DIR__ . '/../assets/images/landen';
+if (is_dir($landMap)) {
+    foreach (scandir($landMap) as $bestand) {
+        $ext = strtolower(pathinfo($bestand, PATHINFO_EXTENSION));
+        if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'], true)) {
+            $landFotos[strtolower(pathinfo($bestand, PATHINFO_FILENAME))] = 'assets/images/landen/' . $bestand;
+        }
+    }
+}
+$app = [
+    'base'      => $base,
+    'gebruiker' => $gebruiker['username'] ?? null,
+    'favs'      => !empty($gebruiker) ? getFavorites($conn, (int) $gebruiker['id']) : [],
+    'csrf'      => csrfToken(),
+    'fotos'     => (object) $fotos,
+    'landfotos' => (object) $landFotos,
+];
+?>
+<footer id="voet">
+    <div class="voet-raster">
+        <div>
+            <h3>Ontkoking</h3>
+            <p>Makkelijke recepten uit de hele wereld. Bewaar je favorieten in je eigen bibliotheek.</p>
+        </div>
+        <div>
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="<?= $base ?>index.php">Home</a></li>
+                <li><a href="<?= $base ?>pages/recepten.php">Recepten</a></li>
+                <li><a href="<?= $base ?>pages/bibliotheek.php">Mijn bibliotheek</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Contact</h3>
+            <p>Een vraag of een tip?<br>Stuur ons een mail:</p>
+            <p><a class="voet-mail" href="mailto:<?= e($contactEmail) ?>?subject=Contact%20Ontkoking">✉ <?= e($contactEmail) ?></a></p>
+        </div>
+    </div>
 </footer>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const APP = <?= jsonForHtml($app) ?>;
+const PAGE = <?= jsonForHtml($paginaData ?? new stdClass()) ?>;
+</script>
+<script src="<?= $base ?>assets/js/recipes.js"></script>
+<script src="<?= $base ?>assets/js/app.js"></script>
+<?php foreach (($scripts ?? []) as $script): ?>
+<script src="<?= $base ?>assets/js/<?= e($script) ?>"></script>
+<?php endforeach; ?>
 
 </body>
 </html>

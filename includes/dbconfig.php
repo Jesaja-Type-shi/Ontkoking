@@ -14,7 +14,7 @@ try {
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES login(id)
     )");
-    echo "<script>console.log('Connected to database!');</script>";
+    // (echo verwijderd: uitvoer vóór <!DOCTYPE> blokkeert sessies en redirects)
 } catch (PDOException $e) {
     echo $e->getMessage();
 }

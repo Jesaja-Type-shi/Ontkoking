@@ -1,0 +1,5 @@
+FOTO'S VOOR DE CIRKELS OP DE HOMEPAGINA
+
+Zet hier een foto neer met de naam van de categorie in kleine letters:
+ontbijt.jpg  lunch.jpg  diner.jpg  soep.jpg  salade.jpg  snacks.jpg  dessert.jpg  drankjes.jpg  vegetarisch.jpg
+Toegestaan: .jpg  .jpeg  .png  .webp. Een vierkante foto werkt het mooist. Zonder foto zie je de emoji.

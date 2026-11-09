@@ -1,0 +1,6 @@
+FOTO'S VOOR DE LANDEN-CIRKELS OP DE HOMEPAGINA
+
+Bestandsnaam = het land in kleine letters, zonder accenten, spaties als streepje:
+italie.jpg  hawai.jpg  verenigde-staten.jpg  nederland.jpg  india.jpg  griekenland.jpg  mexico.jpg  thailand.jpg
+japan.jpg  spanje.jpg  frankrijk.jpg  indonesie.jpg  marokko.jpg  turkije.jpg  libanon.jpg  belgie.jpg
+Toegestaan: .jpg  .jpeg  .png  .webp. Een vierkante foto werkt het mooist. Zonder foto zie je de vlag.
