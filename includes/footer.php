@@ -1,10 +1,7 @@
 <?php
-
 $base = $base ?? '../';
 
-
 $contactEmail = 'ontkoking@gmail.com';
-
 $fotos = [];
 $fotoMap = __DIR__ . '/../assets/images/recepten';
 if (is_dir($fotoMap)) {
@@ -15,7 +12,6 @@ if (is_dir($fotoMap)) {
         }
     }
 }
-
 $landFotos = [];
 $landMap = __DIR__ . '/../assets/images/landen';
 if (is_dir($landMap)) {
@@ -33,6 +29,7 @@ $app = [
     'csrf'      => csrfToken(),
     'fotos'     => (object) $fotos,
     'landfotos' => (object) $landFotos,
+    'eigen'     => getUserRecipes($conn),
 ];
 ?>
 <footer id="voet">

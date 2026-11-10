@@ -1,4 +1,3 @@
-// Foto per land uit assets/images/landen/ (bestandsnaam = land zonder accenten, bijv. italie.jpg), anders de vlag-emoji
 const landSlug = l => l.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-');
 const landFoto = (l, vlag) => APP.landfotos[landSlug(l)] ? `<img src="${APP.base}${APP.landfotos[landSlug(l)]}" alt="">` : vlag;
 document.getElementById('populair').innerHTML = RECEPTEN.filter(foto).slice(0, 6).map(kaart).join('');

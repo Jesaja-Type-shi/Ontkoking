@@ -1,11 +1,9 @@
 <?php
 
-
 require_once __DIR__ . '/dbconfig.php';
 
 $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 $conn->exec('PRAGMA foreign_keys = ON');
-
 
 $conn->exec("CREATE TABLE IF NOT EXISTS login (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -15,7 +13,6 @@ $conn->exec("CREATE TABLE IF NOT EXISTS login (
     role TEXT NOT NULL DEFAULT 'user',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )");
-
 
 $conn->exec("CREATE TABLE IF NOT EXISTS favorites (
     user_id INTEGER NOT NULL,
@@ -36,6 +33,13 @@ $conn->exec("CREATE TABLE IF NOT EXISTS login_attempts (
     attempt_key TEXT NOT NULL,
     attempted_at INTEGER NOT NULL
 )");
+$conn->exec("CREATE TABLE IF NOT EXISTS user_recipes (
+    id TEXT PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    data TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES login(id) ON DELETE CASCADE
+)");
 
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.use_strict_mode', '1');
@@ -48,7 +52,6 @@ if (session_status() === PHP_SESSION_NONE) {
     ]);
     session_start();
 }
-
 
 function registerUser(PDO $conn, string $username, string $email, string $password): array
 {
@@ -71,7 +74,6 @@ function registerUser(PDO $conn, string $username, string $email, string $passwo
         return ['success' => false, 'message' => 'Wachtwoord moet 8 tot 72 tekens bevatten.'];
     }
 
-    
     $stmt = $conn->prepare("SELECT id FROM login WHERE LOWER(username) = LOWER(:username) OR LOWER(email) = LOWER(:email)");
     $stmt->execute(['username' => $username, 'email' => $email]);
     if ($stmt->fetch()) {
@@ -89,7 +91,6 @@ function registerUser(PDO $conn, string $username, string $email, string $passwo
 
     return ['success' => true, 'message' => 'Account succesvol aangemaakt. Je kunt nu inloggen.'];
 }
-
 
 function loginUser(PDO $conn, string $usernameOrEmail, string $password): array
 {
@@ -119,7 +120,6 @@ function loginUser(PDO $conn, string $usernameOrEmail, string $password): array
 
     $conn->prepare("DELETE FROM login_attempts WHERE attempt_key = :key")->execute(['key' => $key]);
 
-    
     session_regenerate_id(true);
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
@@ -128,7 +128,6 @@ function loginUser(PDO $conn, string $usernameOrEmail, string $password): array
 
     return ['success' => true, 'message' => 'Succesvol ingelogd.'];
 }
-
 
 function logoutUser(): void
 {
@@ -145,18 +144,15 @@ function logoutUser(): void
     session_destroy();
 }
 
-
 function isLoggedIn(): bool
 {
     return isset($_SESSION['user_id']);
 }
 
-
 function isAdmin(): bool
 {
     return isLoggedIn() && ($_SESSION['role'] ?? '') === 'admin';
 }
-
 
 function changePassword(PDO $conn, int $userId, string $current, string $new): array
 {
@@ -174,7 +170,6 @@ function changePassword(PDO $conn, int $userId, string $current, string $new): a
     session_regenerate_id(true);
     return ['success' => true, 'message' => 'Je wachtwoord is gewijzigd.'];
 }
-
 
 function deleteAccount(PDO $conn, int $userId, string $password): array
 {

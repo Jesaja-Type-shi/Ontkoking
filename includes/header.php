@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/helpers.php';
 
 $paginaTitel = $paginaTitel ?? 'Ontkoking';
@@ -10,7 +9,6 @@ $huidig    = basename($_SERVER['SCRIPT_NAME'] ?? '');
 $gebruiker = currentUser($conn);
 $aantalFav = $gebruiker ? count(getFavorites($conn, (int) $gebruiker['id'])) : 0;
 $menu = [
-   
     ['Home',         $base . 'index.php',                    'index.php'],
     ['Recepten',     $base . 'pages/recepten.php',           'recepten.php'],
     ['Populair',     $base . 'index.php#populair-recepten',  ''],
@@ -29,7 +27,7 @@ $menu = [
 <body>
 <header id="kop">
     <div class="topbar">
-        <a class="logo" href="<?= $base ?>index.php"><span>Ontkoking</span></a>
+        <a class="logo" href="<?= $base ?>index.php">Ontkoking</a>
 
         <nav class="menu" aria-label="Hoofdnavigatie">
             <?php foreach ($menu as [$tekst, $href, $bestand]): ?>

@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../includes/helpers.php';
 
 [$user, $input] = apiStart($conn);
@@ -8,7 +7,6 @@ if (!isValidRecipeId($id)) {
     apiStop(400, 'Ongeldig recept.');
 }
 $userId = (int) $user['id'];
-
 
 $del = $conn->prepare("DELETE FROM favorites WHERE user_id = :user AND recipe_id = :recept");
 $del->execute(['user' => $userId, 'recept' => $id]);

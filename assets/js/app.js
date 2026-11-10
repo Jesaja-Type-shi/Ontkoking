@@ -1,4 +1,3 @@
-
 const favs = {
   get() { return APP.favs; },
   has(id) { return APP.favs.includes(id); },
@@ -16,6 +15,15 @@ const favs = {
 };
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+const escRecept = r => ({
+  ...r,
+  titel: esc(r.titel), cat: esc(r.cat), intro: esc(r.intro), emoji: esc(r.emoji || ''),
+  land: r.land ? esc(r.land) : undefined, vlag: r.vlag ? esc(r.vlag) : undefined,
+  info: r.info.map(esc),
+  ing: r.ing.map(i => ({ ...i, t: esc(i.t) })),
+  stappen: r.stappen.map(([t, u]) => [esc(t), esc(u)])
+});
+(APP.eigen || []).forEach(r => RECEPTEN.push(escRecept(r)));
 
 const foto = r => APP.fotos[r.id] || r.img || null;
 const afb = r => foto(r)

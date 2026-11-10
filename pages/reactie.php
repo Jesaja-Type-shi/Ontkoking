@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../includes/helpers.php';
 
 [$user, $input] = apiStart($conn);
@@ -12,7 +11,6 @@ if ($tekst === '' || strlen($tekst) > 1000 || preg_match('//u', $tekst) !== 1) {
     apiStop(400, 'Schrijf een reactie van maximaal 500 tekens.');
 }
 $userId = (int) $user['id'];
-
 
 $count = $conn->prepare("SELECT COUNT(*) FROM comments WHERE user_id = :user AND created_at > datetime('now', '-1 minute')");
 $count->execute(['user' => $userId]);
